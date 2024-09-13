@@ -48,7 +48,7 @@ export const loginAction = async (formData: FormData) => {
     }
 }
 
-export const SignOutAction = async () => {
+export const signOutAction = async () => {
     try {
         const {error} = await getSupabaseAuth().signOut();
         if (error) throw error;
