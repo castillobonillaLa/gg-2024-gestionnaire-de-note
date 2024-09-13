@@ -1,11 +1,9 @@
-"use client";
 import { Dispatch, SetStateAction, useTransition } from "react";
 import { Button } from "./ui/button";
 import { DialogContent, DialogFooter, DialogHeader } from "./ui/dialog";
 import { Textarea } from "./ui/textarea";
 import toast from "react-hot-toast";
 import { addNewNoteAction } from "@/actions/notes";
-import { getUser } from "@/lib/auth"; // Adjust this import based on your auth logic
 
 type Props = {
     setOpen: Dispatch<SetStateAction<boolean>>;
@@ -16,25 +14,7 @@ function NewNoteDialog({ setOpen }: Props) {
 
     const handleAddNewNote = async (formData: FormData) => {
         startTransition(async () => {
-            // Get user info (assuming a function `getUser()` is available)
-            const user = await getUser();
-            const userId = user?.id;
-
-            if (!userId) {
-                toast.error("User is not authenticated");
-                return;
-            }
-
-            const text = formData.get("text") as string;
-
-            // Ensure that text is not empty
-            if (!text) {
-                toast.error("Note cannot be empty");
-                return;
-            }
-
-            const { errorMessage } = await addNewNoteAction(text, userId);
-
+            const { errorMessage } = await addNewNoteAction(formData);
             if (!errorMessage) {
                 setOpen(false);
                 toast.success("Successfully added note");

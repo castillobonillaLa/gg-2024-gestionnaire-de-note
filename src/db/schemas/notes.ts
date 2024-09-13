@@ -1,12 +1,11 @@
-import { boolean, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 
-export const notes = pgTable('notes', {
-    id: serial('id').primaryKey(),
-    user_id: text('user_id').notNull(), // Keep the user_id column name consistent
-    text: text('text'),
-    is_archived: boolean('is_archived').default(false), // Rename to match Supabase column
-    createdAt: timestamp('createdAt').defaultNow(),
-    updatedAt: timestamp('updatedAt').defaultNow().$onUpdateFn(() => new Date()), // Corrected typo from "updedAt"
+export const notes = pgTable("notes", {
+    id: serial("id").primaryKey(),
+    userId: text("user_id").notNull(),
+    text: text("text").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
 export type Note = typeof notes.$inferSelect;

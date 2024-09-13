@@ -1,6 +1,6 @@
 "use client";
 
-import {createAccountAction, loginAction} from "@/actions/users";
+import { createAccountAction, loginAction } from "@/actions/users";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
@@ -65,7 +65,7 @@ function LoginPage() {
                     <p className="mt-3 text-center text-xs">
                         Don't have an account?
                         <Link
-                            href="/create-account "
+                            href="/create-account"
                             className="hover:text-primary ml-2 underline transition-colors duration-200 ease-in-out"
                         >
                             Create Account

@@ -3,21 +3,20 @@ import Note from "@/components/Note";
 import db from "@/db";
 import { notes } from "@/db/schemas/notes";
 import { getUser } from "@/lib/auth";
-import { and, desc, eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 export default async function Home() {
     const user = await getUser();
 
-    // Use 'user_id' and 'is_archived' as per the updated schema
     const _notes = await db
         .select()
         .from(notes)
-        .where(and(eq(notes.user_id, user.id), eq(notes.is_archived, false))) // Use 'is_archived' instead of 'isArchived'
+        .where(eq(notes.userId, user.id))
         .orderBy(desc(notes.updatedAt));
 
     return (
         <main className="flex min-h-screen flex-col items-center px-4 pb-24">
-            <Header isArchivePage={false} />
+            <Header />
 
             <div className="mt-8 grid w-full max-w-[1800px] grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {_notes.map((note) => (
